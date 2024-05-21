@@ -1,4 +1,4 @@
-version: '2.27'
+version: '3.8'
 services:
   Labo6-API:
     container_name: apil6
