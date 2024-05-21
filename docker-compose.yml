@@ -5,6 +5,7 @@ services:
     networks:
       - labo6
       - webservices
+    restart: always
     ports:
       - "4000:4000"
     volumes:
@@ -15,6 +16,7 @@ services:
   mongodb-L6:
     container_name: mongodbl6
     image: mongo:latest
+    restart: always
     networks:
       - webservices
     volumes:
