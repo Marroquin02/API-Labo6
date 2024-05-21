@@ -17,7 +17,7 @@ services:
     container_name: mongodb
     image: mongo:latest
     networks:
-      - labo6
+      - webservices
     volumes:
       - ./mongodb_data:/data/db
 
