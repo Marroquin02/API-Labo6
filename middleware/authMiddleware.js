@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { client } = require("../config/database");
+const { validationResult } = require("express-validator");
 require("dotenv").config();
 
 const verifyToken = async (req, res, next) => {
@@ -25,6 +26,7 @@ const verifyToken = async (req, res, next) => {
       if (err) {
         return res.status(401).json({ message: "Invalid token" });
       }
+      req.user = decoded.name;
       next();
     });
   } catch (error) {
@@ -51,7 +53,7 @@ const verifyLogin = async (req, res, next) => {
     };
 
     const _users = await users.find({}).toArray();
-    console.log(_users)
+    console.log(_users);
     const user = await users.find(query).toArray();
     if (!user.length) {
       // const salt = bcrypt.genSaltSync(10);
@@ -95,8 +97,19 @@ const createToken = async (user) => {
   }
 };
 
+const validateFields = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log("validate-fields: ", errors);
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  next();
+};
+
 module.exports = {
   verifyToken,
   createToken,
   verifyLogin,
+  validateFields,
 };
