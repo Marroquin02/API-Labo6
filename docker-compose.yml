@@ -1,4 +1,4 @@
-version: '3.8'
+version: '2.27'
 services:
   Labo6-API:
     container_name: apil6
@@ -25,6 +25,7 @@ networks:
   labo6:
     internal: true
   webservices:
+    external: true
 
 volumes:
   mongodb_data:
