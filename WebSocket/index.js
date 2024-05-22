@@ -58,6 +58,10 @@ wss.on("connection", async (ws, request) => {
         });
       }
     });
+    ws.on("closed", async () => {
+      console.log(`Cliente con ID '${clientId}' desconectado`);
+      clients.delete(clientId);
+    });
   } else {
     console.log("Cliente intentó conectarse sin proporcionar un ID válido");
     ws.close();
