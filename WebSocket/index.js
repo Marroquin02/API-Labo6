@@ -58,7 +58,7 @@ wss.on("connection", async (ws, request) => {
         });
       }
     });
-    ws.on("closed", async () => {
+    ws.on("close", async () => {
       console.log(`Cliente con ID '${clientId}' desconectado`);
       clients.delete(clientId);
     });
