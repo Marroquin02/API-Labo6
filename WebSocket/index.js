@@ -48,21 +48,25 @@ wss.on("connection", async (ws, request) => {
       if (_message.type == "AddPost") {
         //Enviar mensaje a todos los clients conectado con el messaje NewPost
         clients.forEach((client) => {
-          JSON.stringify({
-            type: "NewPost",
-            data: _message.data,
-          });
+          if (client != ws)
+            client.send(
+              JSON.stringify({
+                type: "NewPost",
+                data: _message.data,
+              })
+            );
         });
       }
       if (_message.type == "AddMessage") {
         //Enviar mensaje a todos los clients conectado con el messaje NewMessage
         clients.forEach((client) => {
-          client.send(
-            JSON.stringify({
-              type: "NewMessage",
-              data: _message.data,
-            })
-          );
+          if (client != ws)
+            client.send(
+              JSON.stringify({
+                type: "NewMessage",
+                data: _message.data,
+              })
+            );
         });
       }
     });
