@@ -16,10 +16,12 @@ router.get("/getall", [verifyToken], async (req, res) => {
     const data = await posts.find({}).toArray();
     //for de data para buscar sus mensajes
     for (let i = 0; i < data.length; i++) {
+      console.log(data[i]._id);
       const query = {
         postId: data[i]._id,
       };
-      data[i].messages = await messages.find(query).toArray();
+      const mensajes = await messages.find(query).toArray();
+      data[i].messages = mensajes;
     }
     res.json(data);
   } catch (error) {
