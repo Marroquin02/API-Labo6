@@ -20,7 +20,8 @@ router.get("/getall", [verifyToken], async (req, res) => {
       const query = {
         postId: data[i]._id,
       };
-      const mensajes = await messages.find(query).toArray();
+      const mensajes = await messages.find().toArray();
+      console.log(mensajes)
       data[i].messages = mensajes;
     }
     res.json(data);
