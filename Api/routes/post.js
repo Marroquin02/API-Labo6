@@ -6,7 +6,7 @@ const { client } = require("../config/database");
 const { check } = require("express-validator");
 const { ObjectId } = require("mongodb");
 
-router.post("/getall", [verifyToken], async (req, res) => {
+router.get("/getall", [verifyToken], async (req, res) => {
   const cliente = client();
   try {
     await cliente.connect();
@@ -17,7 +17,7 @@ router.post("/getall", [verifyToken], async (req, res) => {
     //for de data para buscar sus mensajes
     for (let i = 0; i < data.length; i++) {
       const query = {
-        postId: data[i].id,
+        postId: data[i]._id,
       };
       data[i].messages = await messages.find(query).toArray();
     }

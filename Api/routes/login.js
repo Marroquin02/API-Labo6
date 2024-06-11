@@ -21,7 +21,7 @@ router.post("/add", async (req, res) => {
     await cliente.connect();
     const database = cliente.db(process.env.MONGO_DBNAME);
     const Users = database.collection("Users");
-    console.log(users.length)
+    console.log(users.length);
     for (let i = 0; i < users.length; i++) {
       const salt = bcrypt.genSaltSync(10);
       await Users.insertOne({
