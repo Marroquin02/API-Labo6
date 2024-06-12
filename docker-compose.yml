@@ -11,7 +11,7 @@ services:
     volumes:
       - ./WebSocket:/app
     working_dir: /app
-    command: [ "sh", "-c", "npm i && node index.js" ]
+    command: [ "sh", "-c", "node index.js" ]
     mem_limit: 200m
     mem_reservation: 100m
     cpus: '0.1'
@@ -27,7 +27,7 @@ services:
     volumes:
       - ./Api:/app
     working_dir: /app
-    command: [ "sh", "-c", "npm i && node index.js" ]
+    command: [ "sh", "-c", "node index.js" ]
     mem_limit: 200m
     mem_reservation: 100m
     cpus: '0.1'
