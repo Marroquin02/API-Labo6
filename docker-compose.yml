@@ -28,9 +28,9 @@ services:
       - ./Api:/app
     working_dir: /app
     command: [ "sh", "-c", "node index.js" ]
-    mem_limit: 200m
-    mem_reservation: 100m
-    cpus: '0.3'
+    mem_limit: 400m
+    mem_reservation: 250m
+    cpus: '0.15'
 
   mongodb-L6:
     container_name: mongodbl6
@@ -40,8 +40,8 @@ services:
       - labo6
     volumes:
       - ./mongodb_data:/var/lib/mongodb
-    mem_limit: 200m
-    mem_reservation: 100m
+    mem_limit: 500m
+    mem_reservation: 250m
     cpus: '0.3'
 
 networks:
