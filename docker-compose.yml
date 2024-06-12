@@ -12,14 +12,9 @@ services:
       - ./WebSocket:/app
     working_dir: /app
     command: [ "sh", "-c", "npm i && node index.js" ]
-    deploy:
-      resources:
-        limits:
-          cpus: '0.1'
-          memory: '200M'
-        reservations:
-          cpus: '0.05'
-          memory: '100M'
+    mem_limit: 200m
+    mem_reservation: 100m
+    cpus: '0.1'
   Labo6-API:
     container_name: apil6
     image: node:latest
@@ -33,14 +28,9 @@ services:
       - ./Api:/app
     working_dir: /app
     command: [ "sh", "-c", "npm i && node index.js" ]
-    deploy:
-      resources:
-        limits:
-          cpus: '0.1'
-          memory: '200M'
-        reservations:
-          cpus: '0.05'
-          memory: '100M'
+    mem_limit: 200m
+    mem_reservation: 100m
+    cpus: '0.1'
 
   mongodb-L6:
     container_name: mongodbl6
@@ -50,14 +40,9 @@ services:
       - labo6
     volumes:
       - ./mongodb_data:/var/lib/mongodb
-    deploy:
-      resources:
-        limits:
-          cpus: '0.1'
-          memory: '200M'
-        reservations:
-          cpus: '0.05'
-          memory: '100M'
+    mem_limit: 200m
+    mem_reservation: 100m
+    cpus: '0.1'
 
 networks:
   labo6:
