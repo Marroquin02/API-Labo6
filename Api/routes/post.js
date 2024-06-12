@@ -14,7 +14,7 @@ router.get("/getall", [verifyToken], async (req, res) => {
     const posts = database.collection("Posts");
     const messages = database.collection("Message");
     const users = database.collection("Users");
-    const data = await posts.find({}).toArray();
+    let data = await posts.find({}).toArray();
     //for de data para buscar sus mensajes
     for (let i = 0; i < data.length; i++) {
       const user = await users
@@ -38,6 +38,7 @@ router.get("/getall", [verifyToken], async (req, res) => {
         data[i].messages[j].author = user[0].nombre.split(" ")[0] + " " + user[0].nombre.split(" ")[2];
       }
     }
+    data = data.reverse()
     res.json(data);
   } catch (error) {
     res.status(404).json({
