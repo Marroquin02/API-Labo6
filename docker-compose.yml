@@ -30,7 +30,7 @@ services:
     command: [ "sh", "-c", "node index.js" ]
     mem_limit: 200m
     mem_reservation: 100m
-    cpus: '0.1'
+    cpus: '0.3'
 
   mongodb-L6:
     container_name: mongodbl6
@@ -42,7 +42,7 @@ services:
       - ./mongodb_data:/var/lib/mongodb
     mem_limit: 200m
     mem_reservation: 100m
-    cpus: '0.1'
+    cpus: '0.3'
 
 networks:
   labo6:
