@@ -28,7 +28,8 @@ router.get("/getall", [verifyToken], async (req, res) => {
       };
       const mensajes = await messages.find(query).toArray();
       data[i].messages = mensajes;
-      for (let j = 0; j < data[i].messages.length; i++) {
+      console.log(data[i].messages)
+      for (let j = 0; j < data[i].messages.length; j++) {
         const user = await users
           .find({
             carnet: data[i].messages[j].author,
