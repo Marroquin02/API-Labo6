@@ -13,14 +13,29 @@ router.get("/getall", [verifyToken], async (req, res) => {
     const database = cliente.db(process.env.MONGO_DBNAME);
     const posts = database.collection("Posts");
     const messages = database.collection("Message");
+    const users = database.collection("Users");
     const data = await posts.find({}).toArray();
     //for de data para buscar sus mensajes
     for (let i = 0; i < data.length; i++) {
+      const user = await users
+        .find({
+          carnet: data[i].author,
+        })
+        .toArray();
+      data[i].author = user[0].nombre;
       const query = {
         postId: data[i]._id.toString(),
       };
       const mensajes = await messages.find(query).toArray();
       data[i].messages = mensajes;
+      for (let j = 0; j < data[i].mensajes.length; i++) {
+        const user = await users
+          .find({
+            carnet: data[i].messages[j].author,
+          })
+          .toArray();
+        data[i].messages[j].author = user[0].nombre;
+      }
     }
     res.json(data);
   } catch (error) {
