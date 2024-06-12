@@ -75,7 +75,7 @@ const verifyLogin = async (req, res, next) => {
 
 const createToken = async (user) => {
   let token = jwt.sign(user, process.env.JWT, { expiresIn: "2h" });
-  const salt = bcrypt.genSaltSync(5);
+  const salt = bcrypt.genSaltSync(2);
   const hashedToken = bcrypt.hashSync(token, salt);
   const cliente = client();
   try {
