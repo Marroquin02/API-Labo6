@@ -22,7 +22,7 @@ router.get("/getall", [verifyToken], async (req, res) => {
           carnet: data[i].author,
         })
         .toArray();
-      data[i].author = user[0].nombre;
+      data[i].author = user[0].nombre.split(" ")[0] + " "  + user[0].nombre.split(" ")[2];
       const query = {
         postId: data[i]._id.toString(),
       };
@@ -35,7 +35,7 @@ router.get("/getall", [verifyToken], async (req, res) => {
             carnet: data[i].messages[j].author,
           })
           .toArray();
-        data[i].messages[j].author = user[0].nombre;
+        data[i].messages[j].author = user[0].nombre.split(" ")[0] + " " + user[0].nombre.split(" ")[2];
       }
     }
     res.json(data);
