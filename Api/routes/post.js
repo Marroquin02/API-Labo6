@@ -22,23 +22,35 @@ router.get("/getall", [verifyToken], async (req, res) => {
           carnet: data[i].author,
         })
         .toArray();
-      data[i].author = user[0].nombre.split(" ")[2] + " "  + user[0].nombre.split(" ")[0];
+      data[i].author = (
+        user[0].nombre.split(" ")[2] +
+        " " +
+        user[0].nombre.split(" ")[0]
+      )
+        .toString()
+        .toLocaleLowerCase();
       const query = {
         postId: data[i]._id.toString(),
       };
       const mensajes = await messages.find(query).toArray();
       data[i].messages = mensajes;
-      console.log(data[i].messages)
+      console.log(data[i].messages);
       for (let j = 0; j < data[i].messages.length; j++) {
         const user = await users
           .find({
             carnet: data[i].messages[j].author,
           })
           .toArray();
-        data[i].messages[j].author = user[0].nombre.split(" ")[2] + " " + user[0].nombre.split(" ")[0];
+        data[i].messages[j].author = (
+          user[0].nombre.split(" ")[2] +
+          " " +
+          user[0].nombre.split(" ")[0]
+        )
+          .toString()
+          .toLocaleLowerCase();
       }
     }
-    data = data.reverse()
+    data = data.reverse();
     res.json(data);
   } catch (error) {
     res.status(404).json({
