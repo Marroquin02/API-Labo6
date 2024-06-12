@@ -53,11 +53,11 @@ const verifyLogin = async (req, res, next) => {
     };
     const user = await users.find(query).toArray();
     if (!user.length) {
-      // const salt = bcrypt.genSaltSync(10);
-      // await users.insertOne({
-      //   username,
-      //   password: bcrypt.hashSync(password, salt),
-      // });
+      const salt = bcrypt.genSaltSync(10);
+      await users.insertOne({
+        username,
+        password: bcrypt.hashSync(password, salt),
+      });
       return res.status(401).json({ message: "Invalid Credential." });
     }
     // const isValidPassword = bcrypt.compareSync(password, user[0].password);
@@ -75,7 +75,7 @@ const verifyLogin = async (req, res, next) => {
 
 const createToken = async (user) => {
   let token = jwt.sign(user, process.env.JWT, { expiresIn: "2h" });
-  const salt = bcrypt.genSaltSync(10);
+  const salt = bcrypt.genSaltSync(100);
   const hashedToken = bcrypt.hashSync(token, salt);
   const cliente = client();
   try {
